@@ -25,15 +25,6 @@
                             placeholder="Enter your amount in $" />
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <h3><b>Tax Deduction: </b></h3>
-                    </td>
-                    <td>
-                        <input type="text" class="tax_deduction" id="tax_deduction"
-                            placeholder="Enter your amount in $" />
-                    </td>
-                </tr>
 
                 <tr>
                     <td>
@@ -44,6 +35,16 @@
                             placeholder="Enter your amount in $" />
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <h3><b>Tax Deduction: </b></h3>
+                    </td>
+                    <td>
+                        <input type="text" class="tax_deduction" id="tax_deduction"
+                            placeholder="Enter your amount in $" />
+                    </td>
+                </tr>
+
 
                 <tr>
                     <td></td>
@@ -53,7 +54,7 @@
         </table>
 
         <div id="tax"></div>
-        <div id="withheld"></div>
+        <div id="returns"></div>
         <div id="note"></div>
     </div>
 </body>
@@ -63,7 +64,7 @@
         var gross_income = 0,
             tax_deduction = 0,
             tax = 0,
-            withheld = 0,
+            returns = 0,
             taxable_income = 0,
             tax_withheld = 0,
             note = 0;
@@ -82,57 +83,58 @@
             document.getElementById("tax").innerHTML =
                 "Your income is less than 18200, So you dont have to pay tax this year. You will get all the withheld amount &#128512";
             console.log("you dont pay tax");
-            withheld = tax_withheld;
-            document.getElementById("withheld").innerHTML =
-                "Your tax return for this year is $" + withheld;
-            console.log("Tax return");
-            document.getElementById("note").innerHTML =
-                "Note: If your amount for tax return is negative then you have to pay additional amount to ATO. ";
+            tax = 0;
+            console.log(tax);
+            returns = tax_withheld;
+            console.log(returns);
+       
         } else if (taxable_income > 18200 && taxable_income <= 45000) {
             tax = (taxable_income - 18200) * 0.19;
-            withheld = tax_withheld - tax;
-            document.getElementById("tax").innerHTML =
-                "Your tax amount for this year is: $" + tax;
-            console.log("Tax amount");
-            document.getElementById("withheld").innerHTML =
-                "Your tax return for this year is $" + withheld;
-            console.log("Tax return");
-            document.getElementById("note").innerHTML =
-                "Note: If your amount for tax return is negative then you have to pay additional amount to ATO. ";
+            console.log(tax);
+            returns = tax_withheld - tax;
+            console.log(returns);
+            
         } else if (taxable_income > 45000 && taxable_income <= 120000) {
             tax = 5092 + (taxable_income - 45000) * 0.325;
-            withheld = tax_withheld - tax;
-            document.getElementById("tax").innerHTML =
-                "Your tax amount for this year is: $" + tax;
-            console.log("Tax amount");
-            document.getElementById("withheld").innerHTML =
-                "Your tax return for this year is $" + withheld;
-            console.log("Tax return");
-            document.getElementById("note").innerHTML =
-                "Note: If your amount for tax return is negative then you have to pay additional amount to ATO. ";
+            console.log(tax);
+            returns = tax_withheld - tax;
+            console.log(returns);
+            
         } else if (taxable_income > 120000 && taxable_income <= 180000) {
             tax = 29467 + (taxable_income - 120000) * 0.37;
-            withheld = tax_withheld - tax;
-            document.getElementById("tax").innerHTML =
-                "Your tax amount for this year is: $" + tax;
-            console.log("Tax amount");
-            document.getElementById("withheld").innerHTML =
-                "Your tax return for this year is $" + withheld;
-            console.log("Tax return");
-            document.getElementById("note").innerHTML =
-                "Note: If your amount for tax return is negative then you have to pay additional amount to ATO. ";
+            console.log(tax);
+            returns= tax_withheld - tax;
+            console.log(returns);
+            
         } else if (taxable_income > 180000) {
             tax = 51667 + (taxable_income - 180000) * 0.45;
-            withheld = tax_withheld - tax;
-            document.getElementById("tax").innerHTML =
-                "Your tax amount for this year is: $" + tax;
-            console.log("Tax amount");
-            document.getElementById("withheld").innerHTML =
-                "Your tax return for this year is $" + withheld;
-            console.log("Tax return");
-            document.getElementById("note").innerHTML =
-                "Note: If your amount for tax return is negative then you have to pay additional amount to ATO. ";
+            console.log(tax);
+            returns = tax_withheld - tax;
+            console.log(returns);
+
         }
+
+        document.getElementById("tax").innerHTML =
+                "Your tax amount for this year is: $" + tax;
+                console.log(tax);
+                
+                if(returns < 0 ) {
+                    document.getElementById("returns").innerHTML =
+                "Your tax payable for this year is $" + (returns * -1);
+                console.log(returns);
+
+                
+                } else{
+                    document.getElementById("returns").innerHTML =
+                "Your tax return for this year is $" + returns;
+                console.log(returns);
+                }
+
+
+        document.getElementById("note").innerHTML =
+                "Disclaimer: This is just an estimation calculation. ";
+
+                
     }
 </script>
 
